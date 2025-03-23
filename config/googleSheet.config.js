@@ -1,3 +1,6 @@
+const moment = require('moment');
+const { inDevEnvironment } = require('../helper/checkEnv.helper');
+
 const configGoogleSheetEnv = {
   dev: {
     googleClientEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL_DEV,
@@ -56,7 +59,43 @@ const configGoogleSheetPlatform = {
   },
 };
 
+const getGoogleSheetEnvirontment = (platform = '') => {
+  const env = inDevEnvironment ? 'dev' : 'prod';
+
+  return {
+    env: configGoogleSheetEnv[env],
+    platform: configGoogleSheetPlatform[env][platform],
+  };
+};
+
+const configDataGoogleSheet = (data = {}) => {
+  const today = moment();
+
+  const newRow = {
+    Fullname: data.fullname,
+    Email: data.email,
+    Address: data.address,
+    Phone: data.phoneNumber,
+
+    Packet: data.name,
+    Speed: data.speed,
+    Location: data.location,
+
+    Latitude: data.latitude,
+    Longitude: data.longitude,
+    Datetime: today.format('DD MMMM YYYY HH:mm a'),
+    IsCovered: data.isCovered ? 'Covered' : 'Not Covered',
+    ClosestPole: data.closestPole,
+    ClosestFDB: data.closestFDB,
+    CompanyName: data.companyName,
+    CompanyPhone: data.companyPhoneNumber,
+    CompanyAddress: data.companyAddress,
+  };
+
+  return newRow;
+};
+
 module.exports = {
-  configGoogleSheetEnv,
-  configGoogleSheetPlatform,
+  getGoogleSheetEnvirontment,
+  configDataGoogleSheet,
 };

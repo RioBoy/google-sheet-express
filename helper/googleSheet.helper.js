@@ -1,48 +1,7 @@
-const moment = require('moment');
 const _ = require('lodash');
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const { JWT } = require('google-auth-library');
-const {
-  configGoogleSheetEnv,
-  configGoogleSheetPlatform,
-} = require('../config/googleSheet.config');
-const { inDevEnvironment } = require('./checkEnv.helper');
-
-const getGoogleSheetEnvirontment = (platform = '') => {
-  const env = inDevEnvironment ? 'dev' : 'prod';
-
-  return {
-    env: configGoogleSheetEnv[env],
-    platform: configGoogleSheetPlatform[env][platform],
-  };
-};
-
-const configDataGoogleSheet = (data = {}) => {
-  const today = moment();
-
-  const newRow = {
-    Fullname: data.fullname,
-    Email: data.email,
-    Address: data.address,
-    Phone: data.phoneNumber,
-
-    Packet: data.name,
-    Speed: data.speed,
-    Location: data.location,
-
-    Latitude: data.latitude,
-    Longitude: data.longitude,
-    Datetime: today.format('DD MMMM YYYY HH:mm a'),
-    IsCovered: data.isCovered ? 'Covered' : 'Not Covered',
-    ClosestPole: data.closestPole,
-    ClosestFDB: data.closestFDB,
-    CompanyName: data.companyName,
-    CompanyPhone: data.companyPhoneNumber,
-    CompanyAddress: data.companyAddress,
-  };
-
-  return newRow;
-};
+const { getGoogleSheetEnvirontment } = require('../config/googleSheet.config');
 
 const configGoogleSheet = async (config = {}) => {
   const {
@@ -65,11 +24,7 @@ const configGoogleSheet = async (config = {}) => {
   return doc.sheetsById[SHEET_ID];
 };
 
-const sendToGoogleSheet = async (
-  platform = '',
-  data = {},
-  callback = () => {},
-) => {
+const sendToGoogleSheet = async (platform = '', data = {}) => {
   try {
     const {
       env: {
@@ -86,23 +41,15 @@ const sendToGoogleSheet = async (
       GOOGLE_PRIVATE_KEY,
     });
 
-    await sheet
-      .addRow(data)
-      .then((res) => {
-        if (_.isFunction(callback)) {
-          callback();
-        }
-      })
-      .catch((error) => {
-        console.log('error: ', error);
-      });
+    const response = await sheet.addRow(data);
+
+    return response.toObject();
   } catch (error) {
     console.log('error: ', error);
   }
 };
 
 module.exports = {
-  getGoogleSheetEnvirontment,
-  configDataGoogleSheet,
+  configGoogleSheet,
   sendToGoogleSheet,
 };
