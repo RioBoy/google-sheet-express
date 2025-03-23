@@ -15,8 +15,8 @@ const configGoogleSheetEnv = {
 const configGoogleSheetPlatform = {
   dev: {
     web: {
-      spreadSheetId: process.env.WEB_GX_SPREAD_SHEET_ID_DEV,
-      sheetId: process.env.WEB_GX_SHEET_ID_DEV,
+      spreadSheetId: process.env.WEB_SPREAD_SHEET_ID_DEV,
+      sheetId: process.env.WEB_SHEET_ID_DEV,
     },
     meta: {
       spreadSheetId: process.env.META_SPREAD_SHEET_ID_DEV,
@@ -37,8 +37,8 @@ const configGoogleSheetPlatform = {
   },
   prod: {
     web: {
-      spreadSheetId: process.env.WEB_GX_SPREAD_SHEET_ID_PROD,
-      sheetId: process.env.WEB_GX_SHEET_ID_PROD,
+      spreadSheetId: process.env.WEB_SPREAD_SHEET_ID_PROD,
+      sheetId: process.env.WEB_SHEET_ID_PROD,
     },
     meta: {
       spreadSheetId: process.env.META_SPREAD_SHEET_ID_PROD,

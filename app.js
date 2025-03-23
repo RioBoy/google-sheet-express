@@ -24,7 +24,7 @@ app.get('/send', async (req, res) => {
       location: 'Lite 100',
       latitude: -8.1531,
       longitude: 115.1531,
-      isCovered: 'Covered',
+      isCovered: true,
       closestPole: 'GX-25-6006 (324.51 Meters)',
       closestFDB: 'GX-DPS-86760 (174.28 Meters)',
       companyName: '',
