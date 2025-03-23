@@ -32,7 +32,7 @@ app.get('/send', async (req, res) => {
       companyAddress: '',
     });
 
-    const response = await sendToGoogleSheet('webGX', newGoogleSheetRow);
+    const response = await sendToGoogleSheet('web', newGoogleSheetRow);
 
     return res.json({
       success: true,

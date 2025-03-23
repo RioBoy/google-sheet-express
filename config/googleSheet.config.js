@@ -14,7 +14,7 @@ const configGoogleSheetEnv = {
 
 const configGoogleSheetPlatform = {
   dev: {
-    webGX: {
+    web: {
       spreadSheetId: process.env.WEB_GX_SPREAD_SHEET_ID_DEV,
       sheetId: process.env.WEB_GX_SHEET_ID_DEV,
     },
@@ -36,7 +36,7 @@ const configGoogleSheetPlatform = {
     },
   },
   prod: {
-    webGX: {
+    web: {
       spreadSheetId: process.env.WEB_GX_SPREAD_SHEET_ID_PROD,
       sheetId: process.env.WEB_GX_SHEET_ID_PROD,
     },
